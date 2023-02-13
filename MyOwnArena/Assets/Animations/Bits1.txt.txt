@@ -1,0 +1,45 @@
+Script started on Thu 09 Feb 2023 11:55:35 PM MST
+[?1034hsh-4.2$ cat -n bits1.c
+     1	#include <stdio.h> 
+     2	 
+     3	void printLetter(char c);
+     4	void printHex(char c);
+     5	void printDecimal(char c);
+     6	void printBinary(char C);
+     7	void printParity(int bits);
+     8	void analyzeChar(char c);
+     9	
+    10	int main() {
+    11	    char c;
+    12	    printf("Enter a line of text: ");
+    13	    do {
+    14	        scanf("%c", &c);
+    15	        analyzeChar(c);
+    16	    } while (c != '\n');
+    17	    return 0;
+    18	}
+    19	
+    20	void analyzeChar(char c) {
+    21	    printLetter(c);
+    22	    printHex(c);
+    23	    printf("\n"); 
+    24	}
+    25	
+    26	void printLetter(char c) { 
+    27	    printf("The ASCII Code for '%c'is ", c);
+    28	    if ( c == '\n') {
+    29	        printf("The ASCII Code for \\n is");
+    30	    }
+    31	
+    32	void printHex(char c) {
+    33	    printf("%x", c);
+    34	    }
+    35	}
+sh-4.2$ gcc -ansi -Wall bits1.c
+/tmp/ccSxiuPe.o: In function `analyzeChar':
+bits1.c:(.text+0x69): undefined reference to `printHex'
+collect2: error: ld returned 1 exit status
+sh-4.2$ exit
+exit
+
+Script done on Thu 09 Feb 2023 11:56:13 PM MST
