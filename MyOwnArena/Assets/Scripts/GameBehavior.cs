@@ -14,7 +14,19 @@ public class GameBehavior : MonoBehaviour
     public string Text = "Lolipop will make you small making you hard to hit and the icecream will make you bigger making you get around quicker but easier to hit";
 
     private int _itemsCollected = 0;
-
+    void losingscene()
+    {
+        SceneManager.LoadScene(3);
+    }
+    void winningscene()
+    {
+        SceneManager.LoadScene(2);
+    }
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
+    }
     public int Items
     {
         get { return _itemsCollected; }
@@ -46,20 +58,31 @@ public class GameBehavior : MonoBehaviour
         {
             _playerHP = value;
             Debug.LogFormat("Lives: {0}", _playerHP);
+            if (_playerHP <= 0)
+            {
+                labelText = "You want another life with that?";
+                showLossScreen = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                labelText = "Ouch... that's got hurt.";
+            }
         }
     }
 
     // 3
     public bool showWinScreen = false;
+    public bool showLossScreen = false;
     void OnGUI()
     {
         {
             // 4
-            GUI.Box(new Rect(20, 20, 150, 25), "Player Health:" +
+            GUI.Label(new Rect(20, 20, 150, 25), "Player Health:" +
                 _playerHP);
 
             // 5
-            GUI.Box(new Rect(20, 50, 150, 25), "Items Collected: " +
+            GUI.Label(new Rect(20, 50, 150, 25), "Items Collected: " +
                _itemsCollected);
 
             // 6
@@ -75,16 +98,11 @@ public class GameBehavior : MonoBehaviour
         // 3
         if (showWinScreen)
         {
-            // 4
-            if (GUI.Button(new Rect(Screen.width / 2 - 100,
-               Screen.height / 2 - 50, 200, 100), "YOU WON!"))
-            {
-                // 3
-                SceneManager.LoadScene(0);
-
-                // 4
-                Time.timeScale = 1.0f;
-            }
+            winningscene();
+        }
+        if (showLossScreen)
+        {
+            losingscene();
         }
     }
 }

@@ -10,20 +10,22 @@ public class PlayerBehavior : MonoBehaviour
 
     public float distanceToGround = 0.1f;
     public LayerMask groundLayer;
-    public GameObject bullet;
+    public GameObject[] bullets;
+    int bulletType = 0;
     public float bulletSpeed = 100f;
 
     private float vInput;
     private float hInput;
     private Rigidbody _rb;
     private CapsuleCollider _col;
+    private GameBehavior _gameManager;
 
     // 2
     void Start()
     {
         // 3
         _rb = GetComponent<Rigidbody>();
-
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameBehavior>();
         _col = GetComponent<CapsuleCollider>();
     }
 
@@ -39,17 +41,23 @@ public class PlayerBehavior : MonoBehaviour
         this.transform.Rotate(Vector3.up * hInput * Time.deltaTime);
         */
     }
-    // 1
+
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            bulletType = 0;
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            bulletType = 1;
+
         if (Input.GetMouseButtonDown(0))
         {
-            // 3
-            GameObject newBullet = Instantiate(bullet,
+            
+            GameObject newBullet = Instantiate(bullets[bulletType],
                this.transform.position + new Vector3(1, 0, 0),
                   this.transform.rotation) as GameObject;
 
-            // 4
+            
             Rigidbody bulletRB =
                 newBullet.GetComponent<Rigidbody>();
 
@@ -99,5 +107,24 @@ public class PlayerBehavior : MonoBehaviour
         // 9
         return grounded;
 
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        // 4
+        if (collision.gameObject.name == "Enemy")
+        {
+            // 5
+            _gameManager.HP -= 1;
+        }
+        if (collision.gameObject.name == "Lobber")
+        {
+            // 5
+            _gameManager.HP -= 1;
+        }
+        if (collision.gameObject.name == "Melee")
+        {
+            // 5
+            _gameManager.HP -= 1;
+        }
     }
 }
