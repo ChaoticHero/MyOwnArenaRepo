@@ -52,7 +52,9 @@ public class PlayerBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            
+            var audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+
             GameObject newBullet = Instantiate(bullets[bulletType],
                this.transform.position + new Vector3(1, 0, 0),
                   this.transform.rotation) as GameObject;
