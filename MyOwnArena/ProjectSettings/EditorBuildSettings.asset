@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneLoss.unity
     guid: fc2d047768f5a4b4d884587c9c5e0690
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 81fe7f30783daf344b7b83213ef13d72, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2a2be79f5438a1d4b888ce603b0d328f, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b201853455029a047b994f8ef7aec27e, type: 2}
